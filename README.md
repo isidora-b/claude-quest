@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Claude Quest
 
-## Getting Started
+A timed practice exam app for the **Claude Certified Architect** certification. Randomly selects questions from scenario-based question banks and simulates the real exam experience.
 
-First, run the development server:
+## What it does
+
+- Randomly picks 4 out of 6 scenarios per session
+- Selects 15 questions from each selected scenario (60 questions total)
+- 90-minute countdown timer that auto-submits when it runs out
+- Answers lock after submission — correct answer and explanation shown immediately
+- Scenario transition screen between each group of 15 questions
+- Results page with score, pass/fail verdict (72% threshold), and a full review of incorrect and unanswered questions grouped by scenario
+
+## Requirements
+
+- Node.js 20.9+
+- Yarn
+
+## Getting started
 
 ```bash
-npm run dev
-# or
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding question files
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Place your Markdown question files in the `/questions` folder at the project root. The app expects **at least 4 files** (one per scenario), each with at least 15 questions.
 
-## Learn More
+### File format
 
-To learn more about Next.js, take a look at the following resources:
+Each file must follow this structure:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```markdown
+# Scenario Name
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Question 1
 
-## Deploy on Vercel
+Question text goes here?
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A) Option one
+B) Option two
+C) Option three
+D) Option four
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Answer:** B
+
+**Explanation:** Why B is correct and the other options are not.
+
+## Question 2
+...
+```
+
+Rules:
+- First line must be a `#` heading — this becomes the scenario name shown during the quiz
+- Each question starts with `## Question N`
+- Options use `A)` `B)` `C)` `D)` format
+- Correct answer is `**Answer:** X` where X is A, B, C, or D
+- `**Explanation:**` is optional but recommended — shown after the answer is locked
+
+### Converting existing files
+
+If your question files use a different format, a conversion script is included:
+
+```bash
+node scripts/convert-questions.js
+```
+
+This converts from the original `**Question N:**` inline format to the `## Question N` heading format. Backups are created as `*.bak` files before any changes are made.
+
+## How the exam works
+
+1. Click **Start Exam** on the landing page
+2. Answer each question and click **Check answer** to lock it and see the explanation
+3. Click **Next →** to move to the next question
+4. A transition screen appears between scenarios
+5. Use **Finish Exam** at any time — a confirmation dialog will show how many questions remain unanswered
+6. The results page shows your score, pass/fail status, and a full review of every question you got wrong or skipped
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- React 19
+- TypeScript
+- CSS Modules (no UI framework)

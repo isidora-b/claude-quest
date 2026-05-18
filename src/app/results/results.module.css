@@ -1,0 +1,298 @@
+.page {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Score card ── */
+.scoreCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.verdict {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.pass {
+  background: color-mix(in srgb, var(--correct) 15%, transparent);
+  color: var(--correct);
+}
+
+.fail {
+  background: color-mix(in srgb, var(--incorrect) 15%, transparent);
+  color: var(--incorrect);
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.scoreNumber {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--foreground);
+}
+
+.scoreTotal {
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.percentage {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.meta {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.restartBtn {
+  margin-top: 16px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.restartBtn:hover {
+  background: var(--accent-hover);
+}
+
+/* ── Review section ── */
+.perfect {
+  text-align: center;
+  font-size: 16px;
+  color: var(--correct);
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.reviewTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.scenarioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scenarioName {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Question card ── */
+.questionCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.questionCardUnanswered {
+  border-color: var(--text-secondary);
+  opacity: 0.85;
+}
+
+.questionCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.unansweredBadge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--incorrect);
+  color: var(--incorrect);
+  background: color-mix(in srgb, var(--incorrect) 10%, transparent);
+}
+
+.questionText {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.questionNumber {
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 4px;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: var(--background);
+}
+
+.correct {
+  border-color: var(--correct);
+  background: color-mix(in srgb, var(--correct) 8%, transparent);
+}
+
+.incorrect {
+  border-color: var(--incorrect);
+  background: color-mix(in srgb, var(--incorrect) 8%, transparent);
+}
+
+.optionLabel {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--border);
+  color: var(--foreground);
+}
+
+.correct .optionLabel {
+  background: var(--correct);
+  color: #fff;
+}
+
+.incorrect .optionLabel {
+  background: var(--incorrect);
+  color: #fff;
+}
+
+.optionText {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--foreground);
+}
+
+.tag {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  align-self: center;
+}
+
+.correct .tag {
+  background: color-mix(in srgb, var(--correct) 20%, transparent);
+  color: var(--correct);
+}
+
+.incorrect .tag {
+  background: color-mix(in srgb, var(--incorrect) 20%, transparent);
+  color: var(--incorrect);
+}
+
+/* ── Explanation ── */
+.explanation {
+  padding: 14px 16px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.explanationLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.explanation p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding: 32px 16px;
+  }
+
+  .scoreCard {
+    padding: 32px 20px;
+  }
+
+  .scoreNumber {
+    font-size: 48px;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .meta span:nth-child(2) {
+    display: none;
+  }
+}
