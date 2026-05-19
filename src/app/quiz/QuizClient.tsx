@@ -104,13 +104,14 @@ export default function QuizClient({ questions, durationMs }: Props) {
   })
 
   const [confirming, setConfirming] = useState(false)
+  const [paused, setPaused] = useState(false)
   const finish = useCallback(() => dispatch({ type: 'FINISH' }), [])
 
   useEffect(() => {
-    if (state.finished) return
+    if (state.finished || paused) return
     const interval = setInterval(() => dispatch({ type: 'TICK' }), 1000)
     return () => clearInterval(interval)
-  }, [state.finished])
+  }, [state.finished, paused])
 
   useEffect(() => {
     if (!state.finished) return
@@ -193,12 +194,29 @@ export default function QuizClient({ questions, durationMs }: Props) {
         <span className={`${styles.timer} ${isWarning ? styles.timerWarning : ''}`}>
           {formatTime(state.timeLeftMs)}
         </span>
-        <button className={styles.finishBtn} onClick={() => setConfirming(true)}>
-          Finish Exam
-        </button>
+        <div className={styles.headerActions}>
+          <button className={styles.pauseBtn} onClick={() => setPaused(p => !p)}>
+            {paused ? '▶ Resume' : '⏸ Pause'}
+          </button>
+          <button className={styles.finishBtn} onClick={() => setConfirming(true)}>
+            Finish Exam
+          </button>
+        </div>
       </header>
 
-      <main className={styles.main}>
+      {paused && (
+        <div className={styles.pauseOverlay}>
+          <div className={styles.pauseCard}>
+            <p className={styles.pauseTitle}>Exam paused</p>
+            <p className={styles.pauseSubtitle}>Timer is stopped. Resume to continue.</p>
+            <button className={styles.pauseResumeBtn} onClick={() => setPaused(false)}>
+              ▶ Resume
+            </button>
+          </div>
+        </div>
+      )}
+
+      <main className={styles.main} style={{ pointerEvents: paused ? 'none' : undefined }}>
         <div className={styles.meta}>{question.scenarioName}</div>
 
         <p className={styles.questionText}>
